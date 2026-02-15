@@ -96,7 +96,7 @@ Opens on http://localhost:8080 with the API proxied through Nginx.
 | `POST` | `/api/players/:id/appointments` | Book a new appointment |
 | `DELETE` | `/api/players/:id/appointments/:appointmentId` | Cancel an appointment |
 | `GET` | `/api/players/trainers` | List of available trainers |
-| `GET` | `/api/schedule?date=YYYY-MM-DD&trainerName=` | Trainer schedules with slot availability |
+| `GET` | `/api/schedule?date=YYYY-MM-DD&trainerName=` | Trainer schedules with 1-hour slot availability |
 
 All route params (`:id`, `:sessionId`, `:appointmentId`) are validated as UUIDs via Zod. Request bodies are validated with Zod schemas (e.g., ISO 8601 datetime, future-only, end > start). Query params are also validated.
 
@@ -186,8 +186,8 @@ All route params (`:id`, `:sessionId`, `:appointmentId`) are validated as UUIDs 
 - **Dedicated booking page** (`/book`) with full scheduling calendar
 - **Week calendar view**: Navigate between weeks, click a day to see available time slots
 - **Coach selector**: Filter availability by specific coach, or view all coaches at once
-- **Coach schedule cards**: Each coach gets a card showing their 9 AM – 5 PM slot grid with color-coded availability
-- **One-click booking**: Select an available slot and confirm with a single click
+- **Coach schedule cards**: Each coach gets a card showing their 9 AM – 5 PM slot grid with color-coded availability (past slots for today are automatically grayed out)
+- **One-click booking**: Select an available slot and confirm — booking is scoped per coach (selecting a slot on one coach doesn't affect others)
 - **Real-time availability**: Booked slots are immediately marked as unavailable across all views (query invalidation)
 - **My upcoming sessions**: Summary of booked appointments shown at the bottom of the booking page
 - Cancellation available on the Home page (hover to reveal cancel button)
